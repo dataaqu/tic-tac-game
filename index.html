@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="./style.css" />
+
+    <title>Tic Tac Toe</title>
+  </head>
+  <body>
+    <section class="app">
+      <div class="game__options">
+        <div class="logo__div">
+          <img src="./assets/logo.svg" alt="logo" class="logo" />
+        </div>
+
+        <div class="pick__options">
+          <p class="pick__title">PICK PLAYER 1’S MARK</p>
+          <div class="pick__marks">
+            <div class="icon__div">
+              <div class="x__div" onclick="activeChoise('x')">
+                <svg
+                  width="64"
+                  height="64"
+                  viewBox="-17 -20 100 100"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z"
+                    fill="#A8A8A8"
+                    fill-rule="evenodd"
+                    id="x"
+                  />
+                </svg>
+              </div>
+
+              <div class="o__div mark__active" onclick="activeChoise('o')">
+                <svg
+                  width="64"
+                  height="64"
+                  viewBox="-17 -20 100 100"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32 0 14.327 14.327 0 32 0Zm0 18.963c-7.2 0-13.037 5.837-13.037 13.037 0 7.2 5.837 13.037 13.037 13.037 7.2 0 13.037-5.837 13.037-13.037 0-7.2-5.837-13.037-13.037-13.037Z"
+                    fill="#979797"
+                    id="o"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <p class="reminder">REMEMBER : X GOES FIRST</p>
+        </div>
+        <div class="btns__div">
+          <button
+            id="ng__cpu"
+            class="btn-first yellow"
+            onclick="startGame('cpu')"
+          >
+            NEW GAME (VS CPU)
+          </button>
+          <button
+            id="ng__pl"
+            class="btn-first blue"
+            onclick="startGame('player')"
+          >
+            NEW GAME (VS PLAYER)
+          </button>
+        </div>
+      </div>
+      <div class="game">
+        <div class="header">
+          <img src="./assets/logo.svg" alt="logo" class="logo" />
+          <div class="turn"><span class="player__mark">X</span> turn</div>
+          <button class="btn-second restart">
+            <img src="/assets/icon-restart.svg" alt="restart" />
+          </button>
+        </div>
+
+        <div class="grid">
+          <div class="cell cell1"></div>
+          <div class="cell cell2"></div>
+          <div class="cell cell3"></div>
+          <div class="cell cell4"></div>
+          <div class="cell cell5"></div>
+          <div class="cell cell6"></div>
+          <div class="cell cell7"></div>
+          <div class="cell cell8"></div>
+          <div class="cell cell9"></div>
+        </div>
+
+        <div class="score__display">
+          <div class="score player1">
+            <p>X(P1)</p>
+            <span id="p1__score" class="score__number">0</span>
+          </div>
+          <div class="score tie">
+            <p>Ties</p>
+            <span id="tie__score" class="score__number">0</span>
+          </div>
+          <div class="score player2">
+            <p>O(P2)</p>
+            <span id="p2__score" class="score__number">0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="backdrop"></div>
+    <!-- when playing with computer -->
+
+    <div class="popup modal">
+      <div class="loose__content">
+        <p class="modal__para">win</p>
+        <div class="winner__div">
+          <img src="./assets/icon-o.svg" alt="o" class="winner__icon" />
+          <h1 class="winner__title">TAKES THE ROUND</h1>
+        </div>
+        <div class="btns">
+          <button class="btn-second silver quit">Quit</button>
+          <button class="btn-second yellow next__round">Next Round</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- restart popup -->
+    <div class="popup restart__pop">
+      <div class="loose__content">
+        <h1 class="restart__title">RESTART GAME?</h1>
+        <div class="btns">
+          <button id="no__restart" class="btn-second silver">NO, CANCEL</button>
+          <button id="yes__restart" class="btn-second yellow">
+            YES, RESTART
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- when play mulitplayer -->
+
+    <div class="popup modal__multi">
+      <div class="loose__content">
+        <p class="modal__para">Player 1 wins</p>
+        <div class="winner__div">
+          <img src="./assets/icon-x.svg" alt="x" class="winner__icon" />
+          <h1 class="winner__title X">TAKES THE ROUND</h1>
+        </div>
+        <div class="btns">
+          <button class="btn-second silver quit">Quit</button>
+          <button class="btn-second yellow next__round">Next Round</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup tied">
+      <div class="loose__content">
+        <h1 class="restart__title">ROUND TIED</h1>
+        <div class="btns">
+          <button id="tieQuit" class="btn-second silver quit">Quit</button>
+          <button id="tieNext" class="btn-second yellow next__round">Next Round</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
